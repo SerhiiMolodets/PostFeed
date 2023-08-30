@@ -15,6 +15,9 @@
 		08F9D9D82A9F84A800F06F7D /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9D72A9F84A800F06F7D /* BaseCoordinator.swift */; };
 		08F9D9DA2A9F85D500F06F7D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9D92A9F85D500F06F7D /* AppCoordinator.swift */; };
 		08F9D9E12A9F89FD00F06F7D /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9E02A9F89FD00F06F7D /* FeedCoordinator.swift */; };
+		08F9D9EA2A9F8E3F00F06F7D /* InjectionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9E92A9F8E3F00F06F7D /* InjectionKey.swift */; };
+		08F9D9EC2A9F926C00F06F7D /* InjectedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9EB2A9F926C00F06F7D /* InjectedValues.swift */; };
+		08F9D9EE2A9F92D900F06F7D /* Injected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9ED2A9F92D900F06F7D /* Injected.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		08F9D9D72A9F84A800F06F7D /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		08F9D9D92A9F85D500F06F7D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		08F9D9E02A9F89FD00F06F7D /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
+		08F9D9E92A9F8E3F00F06F7D /* InjectionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionKey.swift; sourceTree = "<group>"; };
+		08F9D9EB2A9F926C00F06F7D /* InjectedValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedValues.swift; sourceTree = "<group>"; };
+		08F9D9ED2A9F92D900F06F7D /* Injected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injected.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +67,10 @@
 			isa = PBXGroup;
 			children = (
 				08F9D9DE2A9F87F500F06F7D /* FeedScene */,
-				08F9D9DC2A9F870D00F06F7D /* Resources */,
 				08F9D9DB2A9F86D800F06F7D /* Application */,
 				08F9D9DD2A9F87E000F06F7D /* Common */,
+				08F9D9DC2A9F870D00F06F7D /* Resources */,
+				08F9D9E62A9F8DA500F06F7D /* Services */,
 			);
 			path = PostFeed;
 			sourceTree = "<group>";
@@ -91,6 +98,7 @@
 		08F9D9DD2A9F87E000F06F7D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				08F9D9E82A9F8E1B00F06F7D /* DI */,
 				08F9D9D72A9F84A800F06F7D /* BaseCoordinator.swift */,
 			);
 			path = Common;
@@ -141,6 +149,31 @@
 		08F9D9E52A9F8C1900F06F7D /* DI */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		08F9D9E62A9F8DA500F06F7D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				08F9D9E72A9F8DBA00F06F7D /* Network */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		08F9D9E72A9F8DBA00F06F7D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		08F9D9E82A9F8E1B00F06F7D /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				08F9D9E92A9F8E3F00F06F7D /* InjectionKey.swift */,
+				08F9D9EB2A9F926C00F06F7D /* InjectedValues.swift */,
+				08F9D9ED2A9F92D900F06F7D /* Injected.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -217,8 +250,11 @@
 			files = (
 				08F9D9D82A9F84A800F06F7D /* BaseCoordinator.swift in Sources */,
 				08F9D9C82A9F807E00F06F7D /* FeedViewController.swift in Sources */,
+				08F9D9EE2A9F92D900F06F7D /* Injected.swift in Sources */,
 				08F9D9DA2A9F85D500F06F7D /* AppCoordinator.swift in Sources */,
 				08F9D9C42A9F807E00F06F7D /* AppDelegate.swift in Sources */,
+				08F9D9EA2A9F8E3F00F06F7D /* InjectionKey.swift in Sources */,
+				08F9D9EC2A9F926C00F06F7D /* InjectedValues.swift in Sources */,
 				08F9D9E12A9F89FD00F06F7D /* FeedCoordinator.swift in Sources */,
 				08F9D9C62A9F807E00F06F7D /* SceneDelegate.swift in Sources */,
 			);

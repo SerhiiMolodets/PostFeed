@@ -18,6 +18,14 @@
 		08F9D9EA2A9F8E3F00F06F7D /* InjectionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9E92A9F8E3F00F06F7D /* InjectionKey.swift */; };
 		08F9D9EC2A9F926C00F06F7D /* InjectedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9EB2A9F926C00F06F7D /* InjectedValues.swift */; };
 		08F9D9EE2A9F92D900F06F7D /* Injected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9ED2A9F92D900F06F7D /* Injected.swift */; };
+		08F9D9F02A9F9F8100F06F7D /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9EF2A9F9F8100F06F7D /* NetworkError.swift */; };
+		08F9D9F22A9F9FEB00F06F7D /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9F12A9F9FEB00F06F7D /* Endpoint.swift */; };
+		08F9D9F42A9FA02000F06F7D /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9F32A9FA02000F06F7D /* RequestMethod.swift */; };
+		08F9D9F62A9FA12300F06F7D /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9F52A9FA12300F06F7D /* HTTPClient.swift */; };
+		08F9D9F82AA0ADBE00F06F7D /* PostEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9F72AA0ADBE00F06F7D /* PostEndpoint.swift */; };
+		08F9D9FA2AA0B18300F06F7D /* PostNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9F92AA0B18300F06F7D /* PostNetworkService.swift */; };
+		08F9D9FC2AA0B2C000F06F7D /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9FB2AA0B2C000F06F7D /* PostList.swift */; };
+		08F9D9FE2AA0B37A00F06F7D /* DetailPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9D9FD2AA0B37A00F06F7D /* DetailPosts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +42,14 @@
 		08F9D9E92A9F8E3F00F06F7D /* InjectionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionKey.swift; sourceTree = "<group>"; };
 		08F9D9EB2A9F926C00F06F7D /* InjectedValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedValues.swift; sourceTree = "<group>"; };
 		08F9D9ED2A9F92D900F06F7D /* Injected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injected.swift; sourceTree = "<group>"; };
+		08F9D9EF2A9F9F8100F06F7D /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		08F9D9F12A9F9FEB00F06F7D /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		08F9D9F32A9FA02000F06F7D /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
+		08F9D9F52A9FA12300F06F7D /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		08F9D9F72AA0ADBE00F06F7D /* PostEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEndpoint.swift; sourceTree = "<group>"; };
+		08F9D9F92AA0B18300F06F7D /* PostNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNetworkService.swift; sourceTree = "<group>"; };
+		08F9D9FB2AA0B2C000F06F7D /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
+		08F9D9FD2AA0B37A00F06F7D /* DetailPosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPosts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +151,8 @@
 		08F9D9E32A9F8BF800F06F7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				08F9D9FB2AA0B2C000F06F7D /* PostList.swift */,
+				08F9D9FD2AA0B37A00F06F7D /* DetailPosts.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,6 +182,12 @@
 		08F9D9E72A9F8DBA00F06F7D /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				08F9D9EF2A9F9F8100F06F7D /* NetworkError.swift */,
+				08F9D9F12A9F9FEB00F06F7D /* Endpoint.swift */,
+				08F9D9F32A9FA02000F06F7D /* RequestMethod.swift */,
+				08F9D9F52A9FA12300F06F7D /* HTTPClient.swift */,
+				08F9D9F72AA0ADBE00F06F7D /* PostEndpoint.swift */,
+				08F9D9F92AA0B18300F06F7D /* PostNetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -248,15 +272,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08F9D9F82AA0ADBE00F06F7D /* PostEndpoint.swift in Sources */,
 				08F9D9D82A9F84A800F06F7D /* BaseCoordinator.swift in Sources */,
 				08F9D9C82A9F807E00F06F7D /* FeedViewController.swift in Sources */,
+				08F9D9F62A9FA12300F06F7D /* HTTPClient.swift in Sources */,
 				08F9D9EE2A9F92D900F06F7D /* Injected.swift in Sources */,
+				08F9D9FE2AA0B37A00F06F7D /* DetailPosts.swift in Sources */,
 				08F9D9DA2A9F85D500F06F7D /* AppCoordinator.swift in Sources */,
+				08F9D9FA2AA0B18300F06F7D /* PostNetworkService.swift in Sources */,
+				08F9D9F42A9FA02000F06F7D /* RequestMethod.swift in Sources */,
 				08F9D9C42A9F807E00F06F7D /* AppDelegate.swift in Sources */,
 				08F9D9EA2A9F8E3F00F06F7D /* InjectionKey.swift in Sources */,
 				08F9D9EC2A9F926C00F06F7D /* InjectedValues.swift in Sources */,
+				08F9D9FC2AA0B2C000F06F7D /* PostList.swift in Sources */,
 				08F9D9E12A9F89FD00F06F7D /* FeedCoordinator.swift in Sources */,
 				08F9D9C62A9F807E00F06F7D /* SceneDelegate.swift in Sources */,
+				08F9D9F22A9F9FEB00F06F7D /* Endpoint.swift in Sources */,
+				08F9D9F02A9F9F8100F06F7D /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

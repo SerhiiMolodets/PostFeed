@@ -11,6 +11,7 @@ final class FeedCoordinator: Coordinator {
     let navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
     weak var parentCoordinator: Coordinator?
+    @Injected(\.viewModel) var viewModel
     
     // MARK: - Init
     init(navigationController: UINavigationController) {
@@ -19,7 +20,7 @@ final class FeedCoordinator: Coordinator {
     
     func start() {
         let viewController = FeedViewController()
-//        viewController.viewModel = viewModel
+        viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }
     

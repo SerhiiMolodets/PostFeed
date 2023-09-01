@@ -11,10 +11,14 @@ struct PostListContainer: Codable {
     let posts: [Post]?
 }
 
-struct Post: Codable {
+struct Post: Codable, Comparable {
+    static func < (lhs: Post, rhs: Post) -> Bool {
+        return lhs.title < rhs.title
+    }
     let postId, timeshamp: Int
     let title, previewText: String
     let likesCount: Int
+    var isCollapsed: Bool? = true
 }
 
 

@@ -38,7 +38,7 @@ class FeedViewController: UIViewController {
     private func setupUI() {
         title = "Posts"
         view.backgroundColor = .systemBackground
-        self.tableView.estimatedRowHeight = 233.0
+        self.tableView.estimatedRowHeight = 233
         tableView.delegate = nil
         tableView.rx.setDelegate(self)
             .disposed(by: bag)

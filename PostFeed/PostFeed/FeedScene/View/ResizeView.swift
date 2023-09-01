@@ -146,10 +146,12 @@ class ResizeView: UIView {
             containerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             
             
-            titleLabel.heightAnchor.constraint(equalToConstant: 34).withPriority(.defaultLow)
+//            titleLabel.heightAnchor.constraint(equalToConstant: 34).withPriority(.defaultLow)
+            //            titleLabel.heightAnchor.constraint(equalToConstant: 34).withPriority(.defaultLow)
  
             
         ])
+
     }
     
     func onExpandDidTap(_ handler: @escaping () -> Void) {

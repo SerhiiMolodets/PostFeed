@@ -23,8 +23,4 @@ final class FeedCoordinator: Coordinator {
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }
-    
-    deinit {
-        debugPrint("LoosesListCoordinator deinit")
-    }
 }

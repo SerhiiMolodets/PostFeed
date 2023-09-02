@@ -7,18 +7,15 @@
 
 import Foundation
 
-struct PostListContainer: Codable {
+struct PostListContainer: Decodable {
     let posts: [Post]?
 }
 
-struct Post: Codable, Comparable {
-    static func < (lhs: Post, rhs: Post) -> Bool {
-        return lhs.title < rhs.title
-    }
-    let postId, timeshamp: Int
+struct Post: Decodable {
+    let postId: Int
+    let timeshamp: TimeInterval
     let title, previewText: String
     let likesCount: Int
-    var isCollapsed: Bool? = true
 }
 
 

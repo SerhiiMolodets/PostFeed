@@ -9,11 +9,18 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ResizeView: UIView {
+protocol IdentifiableCell {}
+
+extension IdentifiableCell {
+    static var identifier: String { String(describing: Self.self) }
+}
+final class ResizeViewCell: UITableViewCell, IdentifiableCell {
     
-    private var isCollapsed = true
+    private var isExpanded = false
     private var expandDidTapHandler: (() -> Void)?
     private let bag = DisposeBag()
+
+    
     
     private let containerStackView: UIStackView = {
         let stack = UIStackView()
@@ -24,6 +31,7 @@ class ResizeView: UIView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    
     
     private let likesStackView: UIStackView = {
         let stack = UIStackView()
@@ -36,7 +44,8 @@ class ResizeView: UIView {
     private let bottomStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = .infinity
+        stack.distribution = .equalSpacing
+        //        stack.spacing = .infinity
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -45,7 +54,7 @@ class ResizeView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .black
@@ -55,7 +64,7 @@ class ResizeView: UIView {
     
     private let previewLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .gray
@@ -99,70 +108,66 @@ class ResizeView: UIView {
         return imageView
     }()
     
+    
+    
     func configure(with post: Post) {
-        self.behavioralBinding()
         self.setupUI()
         self.titleLabel.text = post.title
         self.previewLabel.text = post.previewText
-        self.dateLabel.text = "\(post.timeshamp)"
+        self.dateLabel.text = "\(daysAgo(from: post.timeshamp)) days ago"
         self.likesCountLabel.text = "\(post.likesCount)"
-        self.isCollapsed = post.isCollapsed ?? false
-        self.previewLabel.numberOfLines = self.isCollapsed ? 0 : 2
-        self.expandButton.setTitle(self.isCollapsed ? "Collapse" : "Expand", for: .normal)
+        self.previewLabel.numberOfLines = self.isExpanded ? 0 : 2
+        self.expandButton.setTitle(self.isExpanded ? "Collapse" : "Expand", for: .normal)
+        self.expandButton.isHidden = previewLabel.text?.count ?? 0 < 100
     }
     
-    private func behavioralBinding() {
-        expandButton.rx
-            .tap
-            .subscribe { [weak self]_ in
-                guard let self else { return }
-                self.isCollapsed.toggle()
-                self.previewLabel.numberOfLines = self.isCollapsed ? 0 : 2
-                self.previewLabel.layoutIfNeeded()
-                self.expandButton.setTitle(self.isCollapsed ? "Collapse" : "Expand", for: .normal)
-                self.expandDidTapHandler?()
-            }.disposed(by: bag)
+    private func daysAgo(from timestamp: TimeInterval) -> Int {
+        let date = Date(timeIntervalSince1970: timestamp)
+        let currentDate = Date()
+        let timeDifference = currentDate.timeIntervalSince(date)
+        let daysAgo = Int(timeDifference / (60 * 60 * 24))
+        return daysAgo
     }
     
     private func setupUI() {
+        expandButton.addTarget(self, action: #selector(expandDidTap), for: .touchUpInside)
         likeImageView.image = UIImage(named: "heart")
-        addSubview(containerStackView)
+        contentView.addSubview(containerStackView)
         containerStackView.addArrangedSubview(titleLabel)
         containerStackView.addArrangedSubview(previewLabel)
         containerStackView.addArrangedSubview(bottomStackView)
-        bottomStackView.addArrangedSubview(likesStackView)
         likesStackView.addArrangedSubview(likeImageView)
         likesStackView.addArrangedSubview(likesCountLabel)
+        bottomStackView.addArrangedSubview(likesStackView)
+        bottomStackView.addArrangedSubview(dateLabel)
         containerStackView.addArrangedSubview(expandButton)
         setupConstraints()
- 
+        
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
-            containerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            containerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            
-            
-//            titleLabel.heightAnchor.constraint(equalToConstant: 34).withPriority(.defaultLow)
-            //            titleLabel.heightAnchor.constraint(equalToConstant: 34).withPriority(.defaultLow)
- 
-            
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16).withPriority(.defaultHigh),
+            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         ])
-
+        
     }
     
     func onExpandDidTap(_ handler: @escaping () -> Void) {
         self.expandDidTapHandler = handler
     }
     
-}
 
-extension NSLayoutConstraint {
-    func withPriority(_ priority: UILayoutPriority) -> NSLayoutConstraint {
-        self.priority = priority
-        return self
+    
+    @objc
+    func expandDidTap() {
+        self.isExpanded.toggle()
+        self.previewLabel.numberOfLines = self.isExpanded ? 0 : 2
+        self.previewLabel.layoutIfNeeded()
+        self.expandButton.setTitle(self.isExpanded ? "Collapse" : "Expand", for: .normal)
+        self.expandDidTapHandler?()
     }
 }
+

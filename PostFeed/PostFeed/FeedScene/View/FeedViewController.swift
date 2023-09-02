@@ -13,7 +13,6 @@ class FeedViewController: UIViewController {
     // MARK: - Properties
     var viewModel: ViewModelProtocol?
     var bag = DisposeBag()
-    var displayedData: [Post] = []
     
     // MARK: - Views
     private let tableView: UITableView = {
@@ -27,7 +26,6 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bindDataToTableView()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -42,7 +40,7 @@ class FeedViewController: UIViewController {
         tableView.delegate = nil
         tableView.rx.setDelegate(self)
             .disposed(by: bag)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ResizeViewCell.self, forCellReuseIdentifier: ResizeViewCell.identifier)
         
     }
     
@@ -61,42 +59,20 @@ class FeedViewController: UIViewController {
     
     private func bindDataToTableView() {
         viewModel?.listData
-            .bind(to: tableView.rx.items(cellIdentifier: "Cell")) { index, element, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: ResizeViewCell.identifier, cellType: ResizeViewCell.self)) { index, element, cell in
                 cell.selectionStyle = .none
-                self.setupCustomViewIfNeeded(cell: cell, index: index, post: element)
+                cell.configure(with: element)
+                cell.layoutIfNeeded()
+                cell.onExpandDidTap {
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
+                }
+                
+//                self.setupCustomViewIfNeeded(cell: cell, index: index, post: element)
             }
             .disposed(by: bag)
         
-        viewModel?.listData
-            .bind(onNext: { self.displayedData = $0 })
-            .disposed(by: bag)
     }
-    
-    private func setupCustomViewIfNeeded(cell: UITableViewCell, index: Int, post: Post) {
-        if cell.contentView.subviews.contains(where: { $0.tag == 999 }) == false {
-             let customView = ResizeView()
-            
-            customView.tag = 999
-            cell.contentView.addSubview(customView)
-            customView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                customView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
-                customView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-                customView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-                customView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
-            ])
-            
-            customView.onExpandDidTap { [weak self] in
-                guard let self = self else { return }
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-            }
-            
-            customView.configure(with: post)
-            customView.layoutIfNeeded()
-        }
-    }
-    
 }
 
 extension FeedViewController: UITableViewDelegate {

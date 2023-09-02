@@ -10,12 +10,12 @@ import RxSwift
 import RxRelay
 
 protocol ViewModelProtocol {
-    var listData: PublishSubject<[Post]> { get }
+    var listData: BehaviorRelay<[Post]> { get }
 }
 
 class ViewModel: ViewModelProtocol {
     @Injected(\.networkService) var networkService
-    let listData = PublishSubject<[Post]>()
+    let listData = BehaviorRelay<[Post]>.init(value: [])
     
     init() {
         Task {
@@ -26,7 +26,7 @@ class ViewModel: ViewModelProtocol {
     private func getListData() async {
         do {
             guard let data = try await networkService.getList().posts else { return }
-            listData.onNext(data)
+            listData.accept(data)
         } catch {
             debugPrint(error.localizedDescription)
         }

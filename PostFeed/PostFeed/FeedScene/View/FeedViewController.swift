@@ -41,6 +41,22 @@ class FeedViewController: UIViewController {
         tableView.rx.setDelegate(self)
             .disposed(by: bag)
         tableView.register(ResizeViewCell.self, forCellReuseIdentifier: ResizeViewCell.identifier)
+
+
+        let dateSorting = UIAction(title: "Date") { [weak self] (action) in
+            var updatedData = self?.viewModel?.listData.value ?? []
+            updatedData.sort { $0.timeshamp > $1.timeshamp }
+            self?.viewModel?.listData.accept(updatedData)
+        }
+        
+        let likesSorting = UIAction(title: "Likes") { [weak self] (action) in
+            var updatedData = self?.viewModel?.listData.value ?? []
+            updatedData.sort { $0.likesCount > $1.likesCount }
+            self?.viewModel?.listData.accept(updatedData)
+        }
+        let menu = UIMenu(title: "Sort by", options: .displayInline, children: [dateSorting , likesSorting])
+        let barButtonItem = UIBarButtonItem(image: UIImage(named: "sort"), menu: menu)
+        navigationItem.rightBarButtonItem = barButtonItem
         
     }
     
@@ -68,7 +84,7 @@ class FeedViewController: UIViewController {
                     self.tableView.endUpdates()
                 }
                 
-//                self.setupCustomViewIfNeeded(cell: cell, index: index, post: element)
+                //                self.setupCustomViewIfNeeded(cell: cell, index: index, post: element)
             }
             .disposed(by: bag)
         
@@ -76,7 +92,6 @@ class FeedViewController: UIViewController {
 }
 
 extension FeedViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

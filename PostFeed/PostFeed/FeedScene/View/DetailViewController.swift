@@ -13,6 +13,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Properties
     var viewModel: ViewModelProtocol?
     
+    // MARK: - Views
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -93,6 +94,7 @@ final class DetailViewController: UIViewController {
         return imageView
     }()
     
+    // MARK: - Lifecycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -103,7 +105,6 @@ final class DetailViewController: UIViewController {
     }
     
     // MARK: - Flow funcs
-    
     private func setupUI() {
         title = "Post"
         view.backgroundColor = .systemBackground

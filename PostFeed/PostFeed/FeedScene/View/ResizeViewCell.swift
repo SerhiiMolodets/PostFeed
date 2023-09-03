@@ -9,19 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol IdentifiableCell {}
-
-extension IdentifiableCell {
-    static var identifier: String { String(describing: Self.self) }
-}
 final class ResizeViewCell: UITableViewCell, IdentifiableCell {
     
+    // MARK: - Properties
     private var isExpanded = false
     private var expandDidTapHandler: (() -> Void)?
     private let bag = DisposeBag()
 
-    
-    
+    // MARK: - Views
     private let containerStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -107,8 +102,7 @@ final class ResizeViewCell: UITableViewCell, IdentifiableCell {
         return imageView
     }()
     
-    
-    
+    // MARK: - Flow funcs
     func configure(with post: Post) {
         self.setupUI()
         self.titleLabel.text = post.title
@@ -119,14 +113,6 @@ final class ResizeViewCell: UITableViewCell, IdentifiableCell {
         self.expandButton.setTitle(self.isExpanded ? "Collapse" : "Expand", for: .normal)
         self.expandButton.isHidden = previewLabel.text?.count ?? 0 < 100
     }
-    
-//    private func daysAgo(from timestamp: TimeInterval) -> Int {
-//        let date = Date(timeIntervalSince1970: timestamp)
-//        let currentDate = Date()
-//        let timeDifference = currentDate.timeIntervalSince(date)
-//        let daysAgo = Int(timeDifference / (60 * 60 * 24))
-//        return daysAgo
-//    }
     
     private func setupUI() {
         expandButton.addTarget(self, action: #selector(expandDidTap), for: .touchUpInside)

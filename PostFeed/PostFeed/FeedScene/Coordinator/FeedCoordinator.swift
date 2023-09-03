@@ -40,7 +40,4 @@ final class FeedCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    deinit {
-        print("deinit")
-    }
 }

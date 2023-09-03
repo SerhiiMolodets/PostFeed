@@ -33,6 +33,7 @@ class FeedViewController: UIViewController {
         setupConstraints()
     }
     
+    // MARK: - Flow funcs
     private func setupUI() {
         title = "Posts"
         view.backgroundColor = .systemBackground
@@ -60,7 +61,6 @@ class FeedViewController: UIViewController {
         
     }
     
-    // MARK: - Flow funcs
     private func setupConstraints() {
         view.addSubview(tableView)
         

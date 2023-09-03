@@ -45,7 +45,6 @@ final class ResizeViewCell: UITableViewCell, IdentifiableCell {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
-        //        stack.spacing = .infinity
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -114,20 +113,20 @@ final class ResizeViewCell: UITableViewCell, IdentifiableCell {
         self.setupUI()
         self.titleLabel.text = post.title
         self.previewLabel.text = post.previewText
-        self.dateLabel.text = "\(daysAgo(from: post.timeshamp)) days ago"
+        self.dateLabel.text = "\(post.timeshamp.daysAgo()) days ago"
         self.likesCountLabel.text = "\(post.likesCount)"
         self.previewLabel.numberOfLines = self.isExpanded ? 0 : 2
         self.expandButton.setTitle(self.isExpanded ? "Collapse" : "Expand", for: .normal)
         self.expandButton.isHidden = previewLabel.text?.count ?? 0 < 100
     }
     
-    private func daysAgo(from timestamp: TimeInterval) -> Int {
-        let date = Date(timeIntervalSince1970: timestamp)
-        let currentDate = Date()
-        let timeDifference = currentDate.timeIntervalSince(date)
-        let daysAgo = Int(timeDifference / (60 * 60 * 24))
-        return daysAgo
-    }
+//    private func daysAgo(from timestamp: TimeInterval) -> Int {
+//        let date = Date(timeIntervalSince1970: timestamp)
+//        let currentDate = Date()
+//        let timeDifference = currentDate.timeIntervalSince(date)
+//        let daysAgo = Int(timeDifference / (60 * 60 * 24))
+//        return daysAgo
+//    }
     
     private func setupUI() {
         expandButton.addTarget(self, action: #selector(expandDidTap), for: .touchUpInside)

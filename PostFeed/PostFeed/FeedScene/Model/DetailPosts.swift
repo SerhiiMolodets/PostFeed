@@ -12,7 +12,8 @@ struct DetailPostContainer: Decodable {
 }
 
 struct DetailPost: Decodable {
-    let postId, timeshamp: Int
+    let postId: Int
+    let timeshamp: TimeInterval
     let title, text: String
     let postImage: String
     let likesCount: Int

@@ -74,7 +74,8 @@ class FeedViewController: UIViewController {
     }
     
     private func bindDataToTableView() {
-        viewModel?.listData
+        guard let viewModel else { return }
+        viewModel.listData
             .bind(to: tableView.rx.items(cellIdentifier: ResizeViewCell.identifier, cellType: ResizeViewCell.self)) { index, element, cell in
                 cell.selectionStyle = .none
                 cell.configure(with: element)
@@ -83,11 +84,12 @@ class FeedViewController: UIViewController {
                     self.tableView.beginUpdates()
                     self.tableView.endUpdates()
                 }
-                
-                //                self.setupCustomViewIfNeeded(cell: cell, index: index, post: element)
             }
             .disposed(by: bag)
-        
+        tableView.rx.modelSelected(Post.self)
+            .map { $0.postId }
+            .bind(to: viewModel.openDetail)
+            .disposed(by: bag)
     }
 }
 

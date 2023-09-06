@@ -112,7 +112,6 @@ final class DetailViewController: UIViewController {
         postImageView.sd_setImage(with: URL(string: viewModel?.detailData?.postImage ?? ""))
         titleLabel.text = viewModel?.detailData?.title
         postLabel.text = viewModel?.detailData?.text
-//        contentView.layoutIfNeeded()
         likeImageView.image = UIImage(named: "heart")
         likesCountLabel.text = "\(viewModel?.detailData?.likesCount ?? 0)"
         dateLabel.text = "\(viewModel?.detailData?.timeshamp.daysAgo() ?? 0) days ago"
@@ -137,25 +136,22 @@ final class DetailViewController: UIViewController {
     private func setupConstraints() {
         
         NSLayoutConstraint.activate([
-                 // Constrain the scrollView to the view edges
+            
                  scrollView.topAnchor.constraint(equalTo: view.topAnchor),
                  scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                  scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                  scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                  
-                 // Constrain the contentView to the scrollView edges
                  contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
                  contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
                  contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
                  contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
                  contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-                 contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor),// Match width to scrollView
+                 contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor),
                  
-                 // Add constraints for your subviews within the contentView
                  postImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
                  postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
                  postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                 postImageView.heightAnchor.constraint(equalTo: postImageView.widthAnchor, multiplier: 1),
                  
                  titleLabel.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 16),
                  titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:  16),
@@ -170,6 +166,10 @@ final class DetailViewController: UIViewController {
                  bottomStackView.trailingAnchor.constraint(equalTo: postLabel.trailingAnchor),
                  bottomStackView.heightAnchor.constraint(equalToConstant: 22)
              ])
+        
+        if let image = postImageView.image {
+                    postImageView.heightAnchor.constraint(equalTo: postImageView.widthAnchor, multiplier: image.size.height / image.size.width).isActive = true
+                }
 
     }
     
